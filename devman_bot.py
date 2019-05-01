@@ -1,5 +1,5 @@
+import os
 import requests
-from dotenv import dotenv_values
 from telegram import Bot
 
 
@@ -20,11 +20,9 @@ def make_message(attempt: dict) -> str:
 
 
 if __name__ == '__main__':
-    dotenv_dict = dotenv_values()
-
-    token = dotenv_dict['token']
-    chat_id = dotenv_dict['chat_id']
-    authorization = dotenv_dict['Authorization']
+    token = os.environ['token']
+    chat_id = os.environ['chat_id']
+    authorization = os.environ['Authorization']
 
     bot = Bot(token=token)
 

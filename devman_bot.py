@@ -2,6 +2,8 @@ import os
 import requests
 from telegram import Bot
 
+from bot_logger import logger, MyLogsHandler
+
 
 def make_message(attempt: dict) -> str:
     message = 'У Вас проверили работу {}\n'.format(attempt['lesson_title'])
@@ -26,6 +28,8 @@ if __name__ == '__main__':
 
     bot = Bot(token=token)
 
+    logger.addHandler(MyLogsHandler(bot, chat_id))
+
     path = 'https://dvmn.org/api/long_polling/'
     headers = {'Authorization': authorization}
 
@@ -42,7 +46,7 @@ if __name__ == '__main__':
         try:
             res = requests.get(path, headers=headers, params=params)
         except requests.ConnectionError as error:
-            print("Error Connecting:", error)
+            logger.exception(error)
             continue
 
         res.raise_for_status()

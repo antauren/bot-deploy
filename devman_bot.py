@@ -22,16 +22,16 @@ def make_message(attempt: dict) -> str:
 
 
 if __name__ == '__main__':
-    token = os.environ['token']
-    chat_id = os.environ['chat_id']
-    authorization = os.environ['Authorization']
+    token_telegram_bot = os.environ['token_telegram_bot']
+    chat_id_telegram = os.environ['chat_id_telegram']
+    token_devman = os.environ['token_devman']
 
-    bot = Bot(token=token)
+    bot = Bot(token=token_telegram_bot)
 
-    logger.addHandler(MyLogsHandler(bot, chat_id))
+    logger.addHandler(MyLogsHandler(bot, chat_id_telegram))
 
     path = 'https://dvmn.org/api/long_polling/'
-    headers = {'Authorization': authorization}
+    headers = {'Authorization': token_devman}
 
     first = True
     timestamp = None
@@ -55,7 +55,7 @@ if __name__ == '__main__':
         if res_dict['status'] == 'found':
             for attempt in res_dict['new_attempts']:
                 text = make_message(attempt)
-                bot.send_message(chat_id=chat_id, text=text)
+                bot.send_message(chat_id=chat_id_telegram, text=text)
 
             timestamp = res_dict['last_attempt_timestamp']
             continue

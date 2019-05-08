@@ -2,7 +2,8 @@ import os
 import requests
 from telegram import Bot
 
-from bot_logger import logger, MyLogsHandler
+import logging
+from bot_logger import MyLogsHandler
 
 
 def make_message(attempt: dict) -> str:
@@ -28,6 +29,8 @@ if __name__ == '__main__':
 
     bot = Bot(token=token_telegram_bot)
 
+    logger = logging.getLogger('Bot-logger')
+    logger.setLevel(logging.INFO)
     logger.addHandler(MyLogsHandler(bot, chat_id_telegram))
 
     path = 'https://dvmn.org/api/long_polling/'

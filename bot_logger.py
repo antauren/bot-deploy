@@ -12,7 +12,3 @@ class MyLogsHandler(logging.Handler):
         log_entry = self.format(record)
 
         self.bot.send_message(chat_id=self.chat_id, text=log_entry)
-
-
-logger = logging.getLogger("Название логера")
-logger.setLevel(logging.INFO)

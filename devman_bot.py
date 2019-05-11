@@ -1,8 +1,9 @@
 import os
 import requests
+import logging
+
 from telegram import Bot
 
-import logging
 from bot_logger import MyLogsHandler
 
 
@@ -22,15 +23,9 @@ def make_message(attempt: dict) -> str:
     return message
 
 
-if __name__ == '__main__':
-    token_telegram_bot = os.environ['token_telegram_bot']
-    chat_id_telegram = os.environ['chat_id_telegram']
-    token_devman = os.environ['token_devman']
-
+def bot_start(token_telegram_bot, chat_id_telegram, token_devman, logger):
     bot = Bot(token=token_telegram_bot)
 
-    logger = logging.getLogger('Bot-logger')
-    logger.setLevel(logging.INFO)
     logger.addHandler(MyLogsHandler(bot, chat_id_telegram))
 
     path = 'https://dvmn.org/api/long_polling/'
@@ -64,3 +59,14 @@ if __name__ == '__main__':
             continue
 
         timestamp = res_dict['timestamp_to_request']
+
+
+if __name__ == '__main__':
+    token_telegram_bot = os.environ['token_telegram_bot']
+    chat_id_telegram = os.environ['chat_id_telegram']
+    token_devman = os.environ['token_devman']
+
+    logger = logging.getLogger('Bot-logger')
+    logger.setLevel(logging.INFO)
+
+    bot_start(token_telegram_bot, chat_id_telegram, token_devman, logger)

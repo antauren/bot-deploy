@@ -12,7 +12,7 @@
 ### Как запустить на Heroku
 
 1. Зарегестрируйте приложение на [Heroku]
-2. В созданном приложении во вкладке `Deploy`,
+2. В созданном приложении во вкладке `Deploy`
 привяжите данный github-репозиторий в `Deployment method`
 и нажмите `Deploy Branch` внизу страницы
 3. Во вкладке `Settings` заполните переменные `Config Vars`: `token_devman`, `token_telegram_bot`, `chat_id_telegram`
